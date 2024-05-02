@@ -12,6 +12,7 @@ Route::post('/search-user', [UserController::class, 'search']);
 Route::post('/users/follow/{user}', [UserController::class, 'follow']);
 Route::post('/users/unfollow/{user}', [UserController::class, 'unfollow']);
 Route::post('/users/accept/{user}', [UserController::class, 'accept']);
+Route::post('/users/edit/{user}', [UserController::class, 'edit']);
 
 Route::get('/', [HomeController::class, 'show'])->middleware('auth');
 
@@ -25,13 +26,13 @@ Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']);
 
 
-Route::get('/posts', [PostController::class, 'show']);
+Route::get('/{user:username}/posts', [PostController::class, 'show']);
+Route::get('/{user:username}/posts/{post}', [PostController::class, 'showPost']);
 Route::get('/posts/create', [PostController::class, 'showCreate']);
 Route::post('/posts/create', [PostController::class, 'create']);
 
 Route::get('/posts/reply/{post}', [PostController::class, 'showReply']);
 Route::post('/posts/reply/{post}', [PostController::class, 'createReply']);
-Route::get('/posts/{post}', [PostController::class, 'showPost']);
 
 Route::get('/friends', function () {
     return redirect('/friends/' . auth()->user()->username);

@@ -1,7 +1,7 @@
 @extends('layouts.app')
-@section('styles')
+@push('styles')
     {{-- custom style or extend spesific css style --}}
-@endsection
+@endpush
 
 @section('title', 'Create New Post')
 

@@ -1,7 +1,7 @@
 @extends('layouts.app')
-@section('styles')
+@push('styles')
     {{-- custom style or extend spesific css style --}}
-@endsection
+@endpush
 
 @section('title', 'Your Posts')
 
@@ -14,7 +14,7 @@
                     <h3 class="fw-bold">Your Post</h5>
                 </div>
             </div>
-            @each('includes.post_card', $posts, 'post')
+            @each('includes.post-card', $posts, 'post')
         </div>
     </main>
 

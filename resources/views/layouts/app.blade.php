@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @vite('resources/sass/app.scss')
-    @yield('styles')
+    @stack('styles')
     <title>Tweet App - @yield('title')</title>
 </head>
 

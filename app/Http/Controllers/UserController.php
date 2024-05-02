@@ -44,6 +44,7 @@ class UserController extends Controller
 
     public function showFriends(User $user)
     {
+        // dd($user->avatar);
         return view('friends.index', [
             'user' => $user,
             'friends' => $user->friends,
@@ -81,22 +82,31 @@ class UserController extends Controller
         Friendship::where('user_id', $authUser->id)
             ->where('friend_id', $user->id)->delete();
 
-        // Friendship::where('user_id', $authUser->id)
-        //     ->where('friend_id', $user->id)->orWhere(function ($query) use ($user, $authUser) {
-        //         $query->where('user_id', $user->id)->where('friend_id', $authUser->id);
-        //     })->update(['status' => 'pending']);
-
         return response()->json(['message' => 'Unfollowed']);
     }
 
-    // public function accept(User $user)
-    // {
-    //     $authUser = Auth::user();
+    public function edit(User $user, Request $request)
+    {
+        $data = $request->validate([
+            'name' => 'required|max:100',
+            'bio' => 'max:255',
+            'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
 
-    //     Friendship::where('user_id', $user->id)
-    //         ->where('friend_id', $authUser->id)
-    //         ->update(['status' => 'accepted']);
+        if ($request->username !== $user->username) {
+            $request->validate([
+                'username' => 'required|unique:users|max:100',
+            ]);
+        }
 
-    //     return response()->json(['message' => 'Friend request accepted']);
-    // }
+        if ($request->file('avatar')) {
+            $data['avatar'] = $request->file('avatar')->store('images/avatar');
+        } else {
+            $data['avatar'] = $user->avatar;
+        }
+
+        $user->update($data);
+
+        return redirect("/" . $request->username);
+    }
 }

@@ -1,9 +1,9 @@
 <div class="row justify-content-center post">
-    <div class="col-7 p-3 py-0">
+    <div class="col-7 p-3">
         <div class="card">
             <div class="card-header py-3">
                 <div class="user-info">
-                    <img class="rounded-circle me-1" src="{{ Vite::image('avatar.jpeg') }}" alt="avatar" width="20"
+                    <img class="rounded-circle me-1" src="{{ asset($post->user->avatar) }}" alt="avatar" width="20"
                         height="20">
                     <a href="/{{ $post->user->username }}" class="link-underline link-underline-opacity-0">
                         <span class="text-secondary">{{ '@' . $post->user->username }}</span>
@@ -14,7 +14,8 @@
                 </div>
             </div>
 
-            <a href="/posts/{{ $post->id }}" class="link-underline link-underline-opacity-0 link-light">
+            <a href="/{{ $post->user->username }}/posts/{{ $post->id }}"
+                class="link-underline link-underline-opacity-0 link-light">
                 <div class="card-body" style="cursor:pointer;">
                     <h5 class="card-title fw-bold">{{ $post->title }}</h5>
                     <p class="card-text">

@@ -1,7 +1,7 @@
 @extends('layouts.app')
-@section('styles')
+@push('styles')
     {{-- custom style or extend spesific css style --}}
-@endsection
+@endpush
 
 @section('title', 'Home')
 
@@ -16,7 +16,7 @@
             </div>
 
             {{-- @include('includes.post_card') --}}
-            @each('includes.post_card', $posts, 'post')
+            @each('includes.post-card', $posts, 'post')
 
         </div>
     </main>

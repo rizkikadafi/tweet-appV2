@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('email', length: 100)->unique('idx_users_email_unique');
             $table->string('password');
             $table->text('bio')->nullable();
-            $table->string('avatar')->nullable();
+            $table->string('avatar')->default('/images/avatar/avatar.jpeg');
             $table->timestamps();
         });
     }

@@ -1,7 +1,7 @@
 @extends('layouts.app')
-@section('styles')
+@push('styles')
     {{-- custom style or extend spesific css style --}}
-@endsection
+@endpush
 
 @section('title', 'Friends')
 
@@ -16,8 +16,8 @@
                             <div class="user p-2 mb-3">
                                 <div class="row align-items-center">
                                     <div class="col-1">
-                                        <img class="rounded-circle" width="40" height="40"
-                                            src="{{ Vite::image('avatar.jpeg') }}" alt="avatar">
+                                        <img class="rounded-circle" width="40" height="40" src="{{ asset($user->avatar) }}"
+                                            alt="avatar">
                                     </div>
                                     <div class="col">
                                         <span class="d-block text-white fw-bold">{{ $user->name }}</span>
@@ -34,15 +34,14 @@
                                 <button id="following-tab" class="flex-sm-fill text-sm-center nav-link">Following</button>
                             </nav>
                             <ul id="friends-list" class="list-group list-group-flush">
-                                @each('includes.profile_item', $friends, 'user')
+                                @each('includes.profile-item', $friends, 'user')
                             </ul>
                             <ul id="followers-list" class="d-none list-group list-group-flush">
-                                @each('includes.profile_item', $followers, 'user')
+                                @each('includes.profile-item', $followers, 'user')
                             </ul>
                             <ul id="following-list" class="d-none list-group list-group-flush">
-                                @each('includes.profile_item', $following, 'user')
+                                @each('includes.profile-item', $following, 'user')
                             </ul>
-
                         </div>
                     </div>
                 </div>

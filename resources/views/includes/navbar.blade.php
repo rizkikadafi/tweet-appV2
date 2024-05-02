@@ -1,6 +1,6 @@
 <nav class="navbar sticky-top navbar-expand-lg bg-body-tertiary">
     <div class="container">
-        <img class="me-2" src="{{ Vite::image('tweet-logo.png') }}" width="50" alt="tweet logo">
+        <img class="me-2" src="{{ asset('/images/tweet-logo.png') }}" width="50" alt="tweet logo">
         <a class="navbar-brand" href="/">TweetApp</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,7 +18,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ request()->is('posts') || request()->is('posts/*') ? 'active' : '' }}"
-                        aria-current="page" href="/posts">Post</a>
+                        aria-current="page" href="/{{ Auth::user()->username }}/posts">Post</a>
                 </li>
             </ul>
             <ul class="navbar-nav w-100 justify-content-center">
@@ -31,8 +31,8 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
-                        <img src="{{ Vite::asset('resources/images/avatar.jpeg') }}" alt="" width="32"
-                            height="32" class="rounded-circle me-2">
+                        <img src="{{ asset(Auth::user()->avatar) }}" alt="" width="32" height="32"
+                            class="rounded-circle me-2">
                         <strong>{{ Auth::user()->name }}</strong>
                     </a>
                     <ul class="dropdown-menu">

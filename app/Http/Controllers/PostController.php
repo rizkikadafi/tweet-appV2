@@ -3,15 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
-    public function show()
+    public function show(User $user)
     {
+        if ($user->id !== Auth::id()) {
+            abort(404);
+        }
         return view('posts.index', [
-            'posts' => Post::where('user_id', Auth::id())->latest()->get(),
+            'posts' => Post::where('user_id', $user->id)->latest()->get(),
         ]);
     }
 
@@ -34,9 +38,10 @@ class PostController extends Controller
         return redirect('/');
     }
 
-    public function showPost(Post $post)
+    public function showPost(User $user, Post $post)
     {
         return view('posts.threads', [
+            'user' => $user,
             'post' => $post,
             'children' => $post->where('parent_id', $post->id)->latest()->get()
         ]);

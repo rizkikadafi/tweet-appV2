@@ -9,7 +9,7 @@
 
                 <div class="row mb-3">
                     <div class="col">
-                        <img class="mb-3" src="{{ Vite::image('tweet-logo.png') }}" alt="app logo" width="120">
+                        <img class="mb-3" src="{{ asset('/images/tweet-logo.png') }}" alt="app logo" width="120">
                         <h4>Welcome Back!</h4>
                     </div>
                 </div>

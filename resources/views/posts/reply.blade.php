@@ -1,7 +1,7 @@
 @extends('layouts.app')
-@section('styles')
+@push('styles')
     {{-- custom style or extend spesific css style --}}
-@endsection
+@endpush
 
 @section('title', 'Home')
 
@@ -15,8 +15,8 @@
                     <div class="card">
                         <div class="card-header py-3">
                             <div class="user-info">
-                                <img class="rounded-circle me-1" src="{{ Vite::image('avatar.jpeg') }}" alt="avatar"
-                                    width="20" height="20">
+                                <img class="rounded-circle me-1" src="{{ asset($post->user->avatar) }}" alt="avatar" width="20"
+                                    height="20">
                                 <span class="text-white fw-bold">{{ $post->user->name }}</span>
                                 <i class="bi bi-dot text-secondary"></i>
                                 <a href="{{ $post->user->username }}" class="link-underline link-underline-opacity-0">
