@@ -20,16 +20,16 @@
                     <i class="bi bi-dot text-secondary"></i>
                     <span class="text-secondary"><i class="bi bi-geo-alt-fill"></i> Joined Feb 2023</span>
                     <div class="mt-1 friendship-info">
-                        <a href="" class="link-underline link-underline-opacity-0">
-                            <span id="followers-target-count"
-                                class="text-white fw-bold">{{ $friend->followers->count() }}</span>
+                        <a href="/friends/{{ $friend->username }}?tab=followers" class="link-underline link-underline-opacity-0">
+                            <span id="followers-count"
+                                class="text-white fw-bold" data-user-followers="{{ $friend->followers->count() }}">{{ $friend->followers->count() }}</span>
                             <span class="text-secondary">Followers</span>
                         </a>
 
                         <i class="bi bi-dot text-secondary"></i>
 
-                        <a href="" class="link-underline link-underline-opacity-0">
-                            <span class="text-white fw-bold">{{ $friend->following->count() }}</span>
+                        <a href="/friends/{{ $friend->username }}?tab=following" class="link-underline link-underline-opacity-0">
+                            <span id="following-count" class="text-white fw-bold" data-user-following="{{ $friend->following->count() }}">{{ $friend->following->count() }}</span>
                             <span class="text-secondary">Following</span>
                         </a>
                     </div>

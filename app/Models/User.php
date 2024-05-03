@@ -37,37 +37,6 @@ class User extends Authenticatable
         return $this->hasMany(Friendship::class);
     }
 
-    // public function followers()
-    // {
-    //     $followers = User::join('friendships', 'users.id', '=', 'friendships.user_id')
-    //         ->where('friendships.friend_id', $this->id)
-    //         ->select('users.*');
-
-    //     $followers = User::join('friendships', 'users.id', '=', 'friendships.friend_id')
-    //         ->where('friendships.user_id', $this->id)
-    //         ->where('friendships.status', 'accepted')
-    //         ->select('users.*')
-    //         ->union($followers)
-    //         ->get();
-
-    //     return $followers;
-    // }
-
-    // public function following()
-    // {
-    //     $following = User::join('friendships', 'users.id', '=', 'friendships.friend_id')
-    //         ->where('friendships.user_id', $this->id)
-    //         ->select('users.*');
-
-    //     $following = User::join('friendships', 'users.id', '=', 'friendships.user_id')
-    //         ->where('friendships.friend_id', $this->id)
-    //         ->where('friendships.status', 'accepted')
-    //         ->select('users.*')
-    //         ->union($following)
-    //         ->get();
-
-    //     return $following;
-    // }
 
     public function following(): BelongsToMany
     {
@@ -86,27 +55,18 @@ class User extends Authenticatable
         });
     }
 
-    // public function friends()
-    // {
-
-    //     $friends = User::join('friendships', 'users.id', '=', 'friendships.friend_id')
-    //         ->where('friendships.user_id', $this->id)
-    //         ->where('friendships.status', 'accepted')
-    //         ->select('users.*');
-
-    //     $friends = User::join('friendships', 'users.id', '=', 'friendships.user_id')
-    //         ->where('friendships.friend_id', $this->id)
-    //         ->where('friendships.status', 'accepted')
-    //         ->select('users.*')
-    //         ->union($friends)
-    //         ->get();
-
-    //     return $friends;
-    // }
-
-    public function pendingFriends(): HasManyThrough
+    public function likes(): HasMany
     {
-        return $this->hasManyThrough(User::class, Friendship::class, 'user_id', 'id', 'id', 'friend_id')
-            ->where('friendships.status', 'pending');
+        return $this->hasMany(Like::class);
+    }
+
+    public function likedPosts(): BelongsToMany
+    {
+        return $this->belongsToMany(Post::class, 'likes');
+    }
+
+    public function hasLikedPost(Post $post): bool
+    {
+        return $this->likedPosts->contains($post);
     }
 }

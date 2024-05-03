@@ -28,18 +28,18 @@
                                 </div>
                             </div>
                             <nav class="mb-3 nav nav-pills flex-column flex-sm-row border border-secondary rounded p-2">
-                                <button id="friends-tab"
-                                    class="flex-sm-fill text-sm-center nav-link active">Friends</button>
-                                <button id="followers-tab" class="flex-sm-fill text-sm-center nav-link">Followers</button>
-                                <button id="following-tab" class="flex-sm-fill text-sm-center nav-link">Following</button>
+                                <a href="?tab=friends" id="friends-tab"
+                                    class="flex-sm-fill text-sm-center nav-link @if($tab === 'friends') active @endif">Friends</a>
+                                <a href="?tab=followers" id="followers-tab" class="flex-sm-fill text-sm-center nav-link @if($tab === 'followers') active @endif">Followers</a>
+                                <a href="?tab=followers" id="following-tab" class="flex-sm-fill text-sm-center nav-link @if($tab === 'following') active @endif">Following</a>
                             </nav>
-                            <ul id="friends-list" class="list-group list-group-flush">
+                            <ul id="friends-list" class="@if($tab !== 'friends') d-none @endif list-group list-group-flush">
                                 @each('includes.profile-item', $friends, 'user')
                             </ul>
-                            <ul id="followers-list" class="d-none list-group list-group-flush">
+                            <ul id="followers-list" class="@if($tab !== 'followers') d-none @endif list-group list-group-flush">
                                 @each('includes.profile-item', $followers, 'user')
                             </ul>
-                            <ul id="following-list" class="d-none list-group list-group-flush">
+                            <ul id="following-list" class="@if($tab !== 'following') d-none @endif list-group list-group-flush">
                                 @each('includes.profile-item', $following, 'user')
                             </ul>
                         </div>

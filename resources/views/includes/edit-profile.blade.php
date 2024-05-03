@@ -16,6 +16,7 @@
                                 <img src="{{ asset($user->avatar) }}" alt="avatar" width="150" height="150"
                                     class="img-preview rounded-circle border border-secondary mb-3">
                                 <label class="btn btn-primary" for="image">Upload Photo</label>
+                                <input type="hidden" name="old_avatar" value="{{ $user->avatar }}">
                                 <input type="file" name="avatar" class="form-control d-none" id="image"
                                     aria-describedby="inputGroupFileAddon04" aria-label="Upload">
                                 @error('avatar')

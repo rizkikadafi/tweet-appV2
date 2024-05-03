@@ -6,25 +6,13 @@ use App\Models\Friendship;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
     public function show(User $user)
     {
         $authUser = Auth::user();
-        // $status = Friendship::select('status')->where('user_id', $authUser->id)->where('friend_id', $user->id)->first();
-        // $action_status = null;
-
-        // if (!$status) {
-        //     $status = Friendship::select('status')->where('friend_id', $authUser->id)->where('user_id', $user->id)->first();
-        //     if (!$status) {
-        //         $action_status = null;
-        //     } else {
-        //         $action_status = 'second';
-        //     }
-        // } else {
-        //     $action_status = 'first';
-        // }
 
         $status = null;
         if ($authUser->friends->contains($user)) {
@@ -42,14 +30,15 @@ class UserController extends Controller
         ]);
     }
 
-    public function showFriends(User $user)
+    public function showFriends(Request $request, User $user)
     {
-        // dd($user->avatar);
+        $tab = $request->query('tab') ?? 'friends';
         return view('friends.index', [
             'user' => $user,
             'friends' => $user->friends,
             'following' => $user->following,
             'followers' => $user->followers,
+            'tab' => $tab,
         ]);
     }
 
@@ -100,6 +89,9 @@ class UserController extends Controller
         }
 
         if ($request->file('avatar')) {
+            if ($request->old_avatar !== "images/avatar/avatar.jpeg") {
+                Storage::delete($request->old_avatar);
+            }
             $data['avatar'] = $request->file('avatar')->store('images/avatar');
         } else {
             $data['avatar'] = $user->avatar;

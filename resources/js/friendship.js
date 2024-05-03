@@ -6,7 +6,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const followersList = document.getElementById('followers-list');
     const followingList = document.getElementById('following-list');
 
-    friendsTab.addEventListener('click', function() {
+    friendsTab.addEventListener('click', function(event) {
+        event.preventDefault();
         friendsTab.classList.add('active');
         friendsList.classList.remove('d-none');
 
@@ -17,7 +18,8 @@ document.addEventListener('DOMContentLoaded', function() {
         followingList.classList.add('d-none');
     });
 
-    followersTab.addEventListener('click', function() {
+    followersTab.addEventListener('click', function(event) {
+        event.preventDefault();
         followersTab.classList.add('active');
         followersList.classList.remove('d-none');
 
@@ -28,7 +30,8 @@ document.addEventListener('DOMContentLoaded', function() {
         friendsList.classList.add('d-none');
     });
 
-    followingTab.addEventListener('click', function() {
+    followingTab.addEventListener('click', function(event) {
+        event.preventDefault();
         followingTab.classList.add('active');
         followingList.classList.remove('d-none');
 

@@ -10,7 +10,7 @@
                     </a>
 
                     <i class="bi bi-dot text-secondary"></i>
-                    <span class="text-secondary">2 days ago</span>
+                    <span class="text-secondary">{{ $post->intervalTime() }}</span>
                 </div>
             </div>
 
@@ -26,19 +26,34 @@
             <div class="card-footer">
                 <div class="row align-items-center">
                     <div class="col-4">
+                        @if(Auth::user()->hasLikedPost($post))
+
                         {{-- liked --}}
-                        {{-- <i class="bi bi-heart-fill text-danger me-1 unlike-btn"></i> --}}
+                        <i class="bi bi-heart-fill text-danger me-1 unlike-btn" data-post-id="{{ $post->id }}"></i>
+
+                        @else
 
                         {{-- unliked --}}
-                        <i class="bi bi-heart me-1 like-btn"></i>
-                        <span class="text-white like-count me-4" id="like-count">3</span>
+                        <i class="bi bi-heart me-1 like-btn" data-post-id="{{ $post->id }}"></i>
+
+                        @endif
+                        <span class="text-white like-count me-4" data-post-id={{ $post->id }}>{{ $post->usersWhoLiked()->count() }}</span>
+
                         <a href="/posts/reply/{{ $post->id }}"
                             class="text-white link-underline link-underline-opacity-0 me-1">
                             <i class="bi bi-chat-left-dots"></i>
                         </a>
+
+                        <span class="text-white replies-count me-4" data-post-id={{ $post->id }}>{{ $post->children->count() }}</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+@once
+    @push('scripts')
+        @vite('resources/js/like.js')
+    @endpush
+@endonce

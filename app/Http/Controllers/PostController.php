@@ -66,7 +66,7 @@ class PostController extends Controller
 
         Post::create($data);
 
-        return redirect('/posts/' . $post->id);
+        return redirect('/' . $post->user->username . '/posts/' . $post->id);
     }
 
     // public function showComments(Post $post)
